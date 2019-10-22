@@ -7,7 +7,9 @@ import User from '../models/User';
 class SessionController {
   async store(request, response) {
     const schema = Yup.object().shape({
-      email: Yup.string().email().required(),
+      email: Yup.string()
+        .email()
+        .required(),
       password: Yup.string().required(),
     });
 
@@ -18,7 +20,7 @@ class SessionController {
     const { email, password } = request.body;
 
     const user = await User.findOne({
-      where: { email }
+      where: { email },
     });
 
     if (!user) {

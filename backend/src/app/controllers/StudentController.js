@@ -6,7 +6,9 @@ class StudentController {
   async store(request, response) {
     const schema = Yup.object().shape({
       name: Yup.string().required(),
-      email: Yup.string().email().required(),
+      email: Yup.string()
+        .email()
+        .required(),
       age: Yup.number().required(),
       weight: Yup.number().required(),
       height: Yup.number().required(),
@@ -16,7 +18,9 @@ class StudentController {
       return response.status(400).json({ error: 'Validation fails' });
     }
 
-    const { id, name, email, age, weight, height } = await Student.create(request.body);
+    const { id, name, email, age, weight, height } = await Student.create(
+      request.body
+    );
 
     return response.json({
       id,
@@ -40,7 +44,21 @@ class StudentController {
     if (!(await schema.isValid(request.body))) {
       return response.status(400).json({ error: 'Validation fails' });
     }
+
+    const { id } = request.params;
+
+    const student = await Student.findByPk(id);
+
+    if (!student) {
+      return response.status(400).json({ error: 'Student not found' });
+    }
+
+    const { name, email, age, weight, height } = await student.update(
+      request.body
+    );
+
+    return response.status(200).json({ id, name, email, age, weight, height });
   }
-};
+}
 
 export default new StudentController();
