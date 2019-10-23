@@ -8,13 +8,14 @@
 
 A seguir, estarão listadas as funcionalidades já implementadas no projeto.
 
-- Manutenção de Alunos;
-- Manutenção de Planos;
 - Autenticação;
+- Manutenção de Alunos;
+- Manutenção de Matrículas;
+- Manutenção de Planos;
 
 # Instruções para o backend
 
-Você precisará ter instalado na sua máquina o **Node.js**, o ***Yarn** e o **Docker**. Feitas as configurações, seguem os passos para executar o backend da aplicação:
+Você precisará ter instalado na sua máquina o **Node.js**, o **Yarn** e o **Docker**. Feitas as configurações, seguem os passos para executar o backend da aplicação:
 
  - Executar o comando `yarn` para fazer o dowload de todas as dependências necessárias para executar o projeto;
 
@@ -27,7 +28,7 @@ Você precisará ter instalado na sua máquina o **Node.js**, o ***Yarn** e o **
    yarn sequelize db:migrate
    ```
 
- - Se quiser, também pode gerar alguns dados como usuário administrador e planos, executando os `seeds`:
+ - Se quiser, também pode gerar alguns dados, como usuário administrador e planos, executando os `seeds`:
    ```
    yarn sequelize db:seed:all
    ```
