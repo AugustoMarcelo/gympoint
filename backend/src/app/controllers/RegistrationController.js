@@ -1,5 +1,5 @@
 import * as Yup from 'yup';
-import { parseISO, addMonths } from 'date-fns';
+import { parseISO, addMonths, format } from 'date-fns';
 
 import Registration from '../models/Registration';
 import Student from '../models/Student';
@@ -78,7 +78,13 @@ class RegistrationController {
     await Mail.sendMail({
       to: `${student.name} <${student.email}>`,
       subject: 'Registration Confirmed',
-      text: `Hello, ${student.name}! Your registration has been completed. You have selected the ${plan.title} plan. Your registration will be valid until ${registration.end_date}, with a total value of R$ ${price}.`,
+      template: 'registration',
+      context: {
+        student: student.name,
+        plan: plan.title,
+        end_date: format(end_date, 'yyyy-MM-dd'),
+        price,
+      },
     });
 
     return response.status(201).json(registration);
