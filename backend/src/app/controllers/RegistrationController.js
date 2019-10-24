@@ -4,6 +4,7 @@ import { parseISO, addMonths } from 'date-fns';
 import Registration from '../models/Registration';
 import Student from '../models/Student';
 import Plan from '../models/Plan';
+import Mail from '../../lib/Mail';
 
 class RegistrationController {
   async index(request, response) {
@@ -71,6 +72,13 @@ class RegistrationController {
       start_date,
       end_date,
       price,
+    });
+
+    // Send email with registration informations
+    await Mail.sendMail({
+      to: `${student.name} <${student.email}>`,
+      subject: 'Registration Confirmed',
+      text: `Hello, ${student.name}! Your registration has been completed. You have selected the ${plan.title} plan. Your registration will be valid until ${registration.end_date}, with a total value of R$ ${price}.`,
     });
 
     return response.status(201).json(registration);
