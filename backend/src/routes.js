@@ -24,7 +24,10 @@ routes.delete('/plans/:id', PlanController.delete);
 
 // Registration routes (available only for administrators)
 routes.get('/registrations', RegistrationController.index);
-routes.post('/registrations/:student_id', RegistrationController.store);
+routes.post(
+  '/students/:student_id/registrations',
+  RegistrationController.store
+);
 routes.put('/registrations/:id', RegistrationController.update);
 routes.delete('/registrations/:id', RegistrationController.delete);
 
