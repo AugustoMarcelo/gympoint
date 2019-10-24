@@ -11,7 +11,10 @@ A seguir, estarão listadas as funcionalidades já implementadas no projeto.
 - Autenticação;
 - Manutenção de Alunos;
 - Manutenção de Matrículas;
+  - *Envio de e-mail para o aluno*
 - Manutenção de Planos;
+- Realização de Check-ins;
+  - *Limite de 5 checkins por semana*
 
 # Instruções para o backend
 
