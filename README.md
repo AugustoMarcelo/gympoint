@@ -16,7 +16,7 @@ A seguir, estarão listadas as funcionalidades já implementadas no projeto.
 - Manutenção de Pedidos de Auxílio
   - *Envio de e-mail para o aluno quando houver resposta*
 - Realização de Check-ins;
-  - *Limite de 5 checkins por semana*
+  - *Limite de 5 checkins a cada 7 dias*
 
 # Instruções para o backend
 
@@ -24,10 +24,15 @@ Você precisará ter instalado na sua máquina o **Node.js**, o **Yarn** e o **D
 
  - Executar o comando `yarn` para fazer o dowload de todas as dependências necessárias para executar o projeto;
 
- - Crie um container para executar o banco de dados:
+ - Iremos instalar duas imagens contento dois bancos de dados: Postgres, para armazenar nossas tabelas e o Redis, um banco extremamente performático, que será utilizado para envio de e-mails com filas.
     ```
     docker run --name gympoint-db -e POSTGRES_PASSWORD=gympoint -p 5432:5432 -d postgres
     ```
+    ```
+    docker run --name redis -p 6379:6379 -d -t redis:alpine
+    ```
+ - Execute `yarn queue` para que a fila de processamento de emails esteja funcionando.
+
  - Execute as `migrations` para que as tabelas sejam criadas:
    ```
    yarn sequelize db:migrate
@@ -39,4 +44,4 @@ Você precisará ter instalado na sua máquina o **Node.js**, o **Yarn** e o **D
    ```
    *Com isso, você terá o email admin@gympoint.com e a senha 123456 para fazer autenticação e 3 planos cadastrados.*
 
- - Após isso, execute **yarn dev** para que o backend esteja funcionando.
+ - Após isso, execute `yarn dev` para que o backend esteja funcionando.
