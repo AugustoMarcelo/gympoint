@@ -1,10 +1,11 @@
 import * as Yup from 'yup';
-import { parseISO, addMonths, format } from 'date-fns';
+import { parseISO, addMonths } from 'date-fns';
 
 import Registration from '../models/Registration';
 import Student from '../models/Student';
 import Plan from '../models/Plan';
-import Mail from '../../lib/Mail';
+import RegistrationMail from '../jobs/RegistrationMail';
+import Queue from '../../lib/Queue';
 
 class RegistrationController {
   async index(request, response) {
@@ -75,16 +76,11 @@ class RegistrationController {
     });
 
     // Send email with registration informations
-    await Mail.sendMail({
-      to: `${student.name} <${student.email}>`,
-      subject: 'Registration Confirmed',
-      template: 'registration',
-      context: {
-        student: student.name,
-        plan: plan.title,
-        end_date: format(end_date, 'yyyy-MM-dd'),
-        price,
-      },
+    await Queue.add(RegistrationMail.key, {
+      student,
+      plan,
+      end_date,
+      price,
     });
 
     return response.status(201).json(registration);

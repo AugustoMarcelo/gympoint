@@ -1,8 +1,10 @@
 import * as Yup from 'yup';
 
-import Mail from '../../lib/Mail';
 import HelpOrder from '../models/HelpOrder';
 import Student from '../models/Student';
+
+import HelpOrderAnswerMail from '../jobs/HelpOrderAnswerMail';
+import Queue from '../../lib/Queue';
 
 class AnswerHelpOrderController {
   async update(request, response) {
@@ -30,16 +32,11 @@ class AnswerHelpOrderController {
       answer_at,
     });
 
-    // Send email with registration informations
-    await Mail.sendMail({
-      to: `${student.name} <${student.email}>`,
-      subject: 'Gympoint: Your question has been answered',
-      template: 'question_answer',
-      context: {
-        student: student.name,
-        question: helpOrder.question,
-        answer,
-      },
+    // Send email with gym answer
+    await Queue.add(HelpOrderAnswerMail.key, {
+      student,
+      helpOrder,
+      answer,
     });
 
     return response
