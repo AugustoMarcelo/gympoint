@@ -7,6 +7,11 @@ import Registration from '../models/Registration';
 class StudentController {
   async index(request, response) {
     let where = {};
+
+    const { page = 1 } = request.query;
+    const { limit = 10 } = request.query;
+    const offset = (page - 1) * limit;
+
     const { q } = request.query;
 
     if (q) {
@@ -19,6 +24,8 @@ class StudentController {
 
     const students = await Student.findAll({
       where,
+      limit,
+      offset,
       attributes: {
         exclude: ['createdAt', 'updatedAt'],
       },
