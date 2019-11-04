@@ -1,8 +1,39 @@
 import * as Yup from 'yup';
+import { Op } from 'sequelize';
 
 import Student from '../models/Student';
+import Registration from '../models/Registration';
 
 class StudentController {
+  async index(request, response) {
+    let where = {};
+    const { q } = request.query;
+
+    if (q) {
+      where = {
+        name: {
+          [Op.iLike]: `%${q}%`,
+        },
+      };
+    }
+
+    const students = await Student.findAll({
+      where,
+      attributes: {
+        exclude: ['createdAt', 'updatedAt'],
+      },
+      include: [
+        {
+          model: Registration,
+          as: 'registration',
+          attributes: ['end_date'],
+        },
+      ],
+    });
+
+    return response.status(200).json(students);
+  }
+
   async store(request, response) {
     const schema = Yup.object().shape({
       name: Yup.string().required(),
