@@ -4,7 +4,13 @@ import Plan from '../models/Plan';
 
 class PlanController {
   async index(request, response) {
-    const plans = await Plan.findAll();
+    const { page = 1, limit = 10 } = request.query;
+    const offset = (page - 1) * limit;
+
+    const plans = await Plan.findAndCountAll({
+      limit,
+      offset,
+    });
 
     return response.status(200).json(plans);
   }

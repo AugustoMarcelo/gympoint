@@ -5,6 +5,9 @@ import HelpOrder from '../models/HelpOrder';
 
 class StudentHelpOrderController {
   async index(request, response) {
+    const { page = 1, limit = 10 } = request.query;
+    const offset = (page - 1) * limit;
+
     const { id: student_id } = request.params;
 
     const student = await Student.findByPk(student_id);
@@ -17,6 +20,8 @@ class StudentHelpOrderController {
       where: {
         student_id,
       },
+      limit,
+      offset,
     });
 
     return response.status(200).json(helpOrders);

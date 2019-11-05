@@ -8,8 +8,7 @@ class StudentController {
   async index(request, response) {
     let where = {};
 
-    const { page = 1 } = request.query;
-    const { limit = 10 } = request.query;
+    const { page = 1, limit = 10 } = request.query;
     const offset = (page - 1) * limit;
 
     const { q } = request.query;
@@ -22,7 +21,7 @@ class StudentController {
       };
     }
 
-    const students = await Student.findAll({
+    const students = await Student.findAndCountAll({
       where,
       limit,
       offset,

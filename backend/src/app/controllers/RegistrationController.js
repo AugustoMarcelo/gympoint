@@ -9,7 +9,12 @@ import Queue from '../../lib/Queue';
 
 class RegistrationController {
   async index(request, response) {
-    const registrations = await Registration.findAll({
+    const { page = 1, limit = 10 } = request.query;
+    const offset = (page - 1) * limit;
+
+    const registrations = await Registration.findAndCountAll({
+      limit,
+      offset,
       attributes: ['id', 'start_date', 'end_date', 'price', 'active'],
       include: [
         {

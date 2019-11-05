@@ -6,6 +6,9 @@ import Checkin from '../models/Checkin';
 
 class CheckinController {
   async index(request, response) {
+    const { page = 1, limit = 10 } = request.query;
+    const offset = (page - 1) * limit;
+
     const { id: student_id } = request.params;
 
     const student = await Student.findByPk(student_id);
@@ -16,6 +19,8 @@ class CheckinController {
 
     const checkins = await Checkin.findAndCountAll({
       where: { student_id },
+      limit,
+      offset,
     });
 
     return response.status(200).json(checkins);
