@@ -3,6 +3,9 @@
 <p align="justify">
 <strong>Gympoint</strong> é um sistema gerenciador de academias. Ele permite cadastrar usuários, alunos, planos e matrículas. Além disso, calcula os valores finais e a duração das matrículas, permite realização de check-in dos alunos, permite que os alunos possam abrir pedidos de auxílio e realiza envio de e-mails.
 </p>
+<p>
+  Você pode consultar a <a href="./DOCS.md" rel="noopener noreferrer">documentação</a> e verificar informações sobre os <i>endpoints</i>.
+</p>
 
 # Funcionalidades
 
