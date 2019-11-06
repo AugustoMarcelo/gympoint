@@ -48,3 +48,9 @@ Você precisará ter instalado na sua máquina o **Node.js**, o **Yarn** e o **D
    *Com isso, você terá o email admin@gympoint.com e a senha 123456 para fazer autenticação e 3 planos cadastrados.*
 
  - Após isso, execute `yarn dev` para que o backend esteja funcionando.
+
+# Instruções para o frontend
+
+ - Executar o comando `yarn` para fazer o dowload de todas as dependências necessárias para executar o projeto;
+
+ - Feitos os downloads de todas as dependências, execute `yarn start` para inicilizar o frontend da aplicação;
