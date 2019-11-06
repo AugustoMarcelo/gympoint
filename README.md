@@ -54,3 +54,7 @@ Você precisará ter instalado na sua máquina o **Node.js**, o **Yarn** e o **D
  - Executar o comando `yarn` para fazer o dowload de todas as dependências necessárias para executar o projeto;
 
  - Feitos os downloads de todas as dependências, execute `yarn start` para inicilizar o frontend da aplicação;
+
+# Previews
+## Tela de Login
+<img src="./previews/sign_in.png" alt="Tela de login" />
