@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { darken } from 'polished';
 
 export const Container = styled.div`
   height: 60px;
@@ -6,7 +7,7 @@ export const Container = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 5px 20px;
-  box-shadow: 0px 1px 5px #ddd;
+  box-shadow: 0px 1px 2px #ddd;
 `;
 
 export const ContentLeft = styled.div`
@@ -38,6 +39,15 @@ export const Navigation = styled.ul`
       text-transform: uppercase;
       color: #999;
       font-weight: bold;
+      transition: color 0.2s;
+
+      &.active {
+        color: #444;
+      }
+
+      &:hover {
+        color: ${darken(0.08, '#444')};
+      }
     }
   }
 `;
@@ -54,5 +64,10 @@ export const ContentRight = styled.div`
 
   a {
     color: #ee4d64;
+    transition: color 0.1s;
+
+    &:hover {
+      color: red;
+    }
   }
 `;
