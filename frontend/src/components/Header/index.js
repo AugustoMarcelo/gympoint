@@ -78,7 +78,9 @@ export default function Header() {
       </ContentLeft>
       <ContentRight>
         <strong>Marcelo Augusto</strong>
-        <a href="#">sair do sistema</a>
+        <button type="button" onClick={() => console.log('logout')}>
+          sair do sistema
+        </button>
       </ContentRight>
     </Container>
   );
