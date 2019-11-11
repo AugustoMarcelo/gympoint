@@ -62,8 +62,10 @@ export const ContentRight = styled.div`
     color: #666;
   }
 
-  a {
+  button {
     color: #ee4d64;
+    background: transparent;
+    border: 0;
     transition: color 0.1s;
 
     &:hover {
