@@ -1,5 +1,5 @@
 import Sequelize, { Model } from 'sequelize';
-import { parseISO, isAfter } from 'date-fns';
+import { parseISO, isAfter, isBefore } from 'date-fns';
 
 class Registration extends Model {
   static init(sequelize) {
@@ -9,9 +9,15 @@ class Registration extends Model {
         end_date: Sequelize.DATEONLY,
         price: Sequelize.FLOAT,
         active: {
-          type: Sequelize.VIRTUAL,
+          type: Sequelize.VIRTUAL(Sequelize.BOOLEAN, [
+            'start_date',
+            'end_date',
+          ]),
           get() {
-            return isAfter(parseISO(this.end_date), new Date());
+            return (
+              isBefore(parseISO(this.get('start_date')), new Date()) &&
+              isAfter(parseISO(this.get('end_date')), new Date())
+            );
           },
         },
       },
