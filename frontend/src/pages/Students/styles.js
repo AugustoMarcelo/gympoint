@@ -11,14 +11,21 @@ export const Header = styled.div`
   justify-content: space-between;
 
   div {
+    display: flex;
+
     button {
       color: #fff;
+      text-transform: uppercase;
+      font-weight: bold;
       background: #ee4d64;
       border: 0;
       border-radius: 4px;
       height: 36px;
-      padding: 0 10px;
+      padding: 0 15px;
       margin-right: 10px;
+
+      display: flex;
+      align-items: center;
 
       &:hover {
         background: ${darken(0.1, '#ee4d64')};
