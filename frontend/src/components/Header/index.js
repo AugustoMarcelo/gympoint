@@ -44,7 +44,7 @@ export default function Header() {
         break;
       default:
     }
-  }, []);
+  }, [window.location.pathname]);
 
   function handleSignOut() {
     dispatch(signOut());
