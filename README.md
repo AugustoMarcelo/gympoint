@@ -58,3 +58,7 @@ Você precisará ter instalado na sua máquina o **Node.js**, o **Yarn** e o **D
 # Previews
 ## Tela de Login
 <img src="./previews/sign_in.png" alt="Tela de login" />
+
+---
+## Tela de listagem de Alunos
+<img src="./previews/list_students.png" alt="Tela de listagem de alunos" />
