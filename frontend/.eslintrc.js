@@ -29,6 +29,8 @@ module.exports = {
     'import/prefer-default-export': 'off',
     'react/jsx-one-expression-per-line': 'off',
     'react/require-default-props': 'off',
+    'no-console': ['error', { allow: ['tron'] }],
+    'no-param-reassign': 'off',
     'react/jsx-props-no-spreading': ['error', {
       custom: 'enforce'
     }]
