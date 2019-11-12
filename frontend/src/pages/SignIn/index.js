@@ -1,4 +1,5 @@
 import React from 'react';
+import { FaSpinner } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Form, Input } from '@rocketseat/unform';
@@ -13,7 +14,6 @@ export default function SignIn() {
   const loading = useSelector(state => state.auth.loading);
 
   function handleSubmit({ email, password }) {
-    console.tron.log(email, password);
     dispatch(signInRequest(email, password));
   }
 
@@ -38,7 +38,13 @@ export default function SignIn() {
             placeholder="**********"
             label="Password"
           />
-          <button type="submit">Entrar no sistema</button>
+          <button type="submit" disabled={loading ? 1 : 0}>
+            {loading ? (
+              <FaSpinner size={20} color="#fff" />
+            ) : (
+              'Entrar no sistema'
+            )}
+          </button>
         </Form>
       </Card>
     </Container>
