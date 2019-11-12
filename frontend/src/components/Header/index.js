@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+
+import { signOut } from '../../store/modules/auth/actions';
 
 import logo from '../../assets/logo.png';
 import {
@@ -11,6 +14,9 @@ import {
 } from './styles';
 
 export default function Header() {
+  const profile = useSelector(state => state.user.profile);
+  const dispatch = useDispatch();
+
   const [selectedMenus, setSelectedMenus] = useState({
     students: '',
     plans: '',
@@ -39,6 +45,10 @@ export default function Header() {
       default:
     }
   }, []);
+
+  function handleSignOut() {
+    dispatch(signOut());
+  }
 
   return (
     <Container>
@@ -77,8 +87,8 @@ export default function Header() {
         </Navigation>
       </ContentLeft>
       <ContentRight>
-        <strong>Marcelo Augusto</strong>
-        <button type="button" onClick={() => console.log('logout')}>
+        <strong>{profile.name}</strong>
+        <button type="button" onClick={handleSignOut}>
           sair do sistema
         </button>
       </ContentRight>
