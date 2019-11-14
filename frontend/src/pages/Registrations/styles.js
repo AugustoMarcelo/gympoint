@@ -19,7 +19,6 @@ export const Header = styled.div`
     border-radius: 4px;
     height: 36px;
     padding: 0 15px;
-    margin-right: 10px;
 
     display: flex;
     align-items: center;
