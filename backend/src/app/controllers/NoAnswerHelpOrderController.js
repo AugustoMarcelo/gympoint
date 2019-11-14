@@ -1,4 +1,5 @@
 import HelpOrder from '../models/HelpOrder';
+import Student from '../models/Student';
 
 class NoAnswerHelpOrderController {
   async index(request, response) {
@@ -11,6 +12,15 @@ class NoAnswerHelpOrderController {
       },
       limit,
       offset,
+      include: [
+        {
+          model: Student,
+          as: 'student',
+          attributes: {
+            exclude: ['createdAt', 'updatedAt'],
+          },
+        },
+      ],
     });
 
     return response.json(helpOrders);
