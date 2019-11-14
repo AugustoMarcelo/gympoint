@@ -3,7 +3,9 @@ import { MdAdd, MdCheckCircle, MdCancel } from 'react-icons/md';
 
 import api from '../../services/api';
 
-import { Container, Header, Content, EmptyContent, Pagination } from './styles';
+import Pagination from '../../components/Pagination';
+
+import { Container, Header, Content, EmptyContent } from './styles';
 
 export default function Students() {
   const [students, setStudents] = useState([]);
@@ -108,27 +110,14 @@ export default function Students() {
       ) : (
         <EmptyContent>Nenhum aluno encontrado</EmptyContent>
       )}
-      <Pagination>
-        <button
-          title="Clique para buscar registros anteriores"
-          type="button"
-          disabled={pagination.page === 1 && 'disabled'}
-          onClick={handlePreviousPage}
-        >
-          Anterior
-        </button>
-        <button
-          title="Clique para buscar mais registros"
-          type="button"
-          disabled={
-            (students.length === 0 || students.length < pagination.limit) &&
-            'disabled'
-          }
-          onClick={handleNextPage}
-        >
-          Próximo
-        </button>
-      </Pagination>
+      <Pagination
+        handleNextPage={handleNextPage}
+        handlePreviousPage={handlePreviousPage}
+        prevDisabled={pagination.page === 1}
+        nextDisabled={
+          students.length === 0 || students.length < pagination.limit
+        }
+      />
     </Container>
   );
 }
