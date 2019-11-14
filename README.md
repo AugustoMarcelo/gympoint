@@ -66,3 +66,11 @@ Você precisará ter instalado na sua máquina o **Node.js**, o **Yarn** e o **D
 ---
 ## Tela de Listagem de Matrículas
 <img src="./previews/list_registrations.png" alt="Tela de listagem de matrículas" />
+
+---
+## Tela de Listagem de Planos
+<img src="./previews/list_plans.png" alt="Tela de listagem de planos" />
+
+---
+## Tela de Listagem de Pedidos de Auxílio
+<img src="./previews/list_help-orders.png" alt="Tela de listagem de pedidos de auxílio" />
