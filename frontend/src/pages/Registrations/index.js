@@ -29,10 +29,6 @@ export default function Registrations() {
 
   useEffect(() => {
     loadRegistrations();
-  }, []);
-
-  useEffect(() => {
-    loadRegistrations();
   }, [pagination]);
 
   function handlePreviousPage() {
