@@ -27,10 +27,6 @@ export default function Students() {
 
   useEffect(() => {
     loadStudents();
-  }, []);
-
-  useEffect(() => {
-    loadStudents();
   }, [pagination]);
 
   function handleNextPage() {
