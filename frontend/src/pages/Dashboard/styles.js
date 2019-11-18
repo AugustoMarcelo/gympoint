@@ -1,6 +1,11 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  min-height: 100%;
-  background: #f5f5f5;
+  padding: 30px 80px 0px;
+`;
+
+export const Header = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 `;
