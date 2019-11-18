@@ -96,6 +96,18 @@ class StudentController {
 
     return response.status(200).json({ id, name, email, age, weight, height });
   }
+
+  async show(request, response) {
+    const { id } = request.params;
+
+    const student = await Student.findByPk(id);
+
+    if (!student) {
+      return response.status(400).json({ error: 'Student not found' });
+    }
+
+    return response.status(200).json(student);
+  }
 }
 
 export default new StudentController();
