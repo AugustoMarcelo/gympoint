@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { MdAdd, MdCheckCircle, MdCancel } from 'react-icons/md';
 
 import api from '../../services/api';
+import history from '../../services/history';
 
 import Pagination from '../../components/Pagination';
 
@@ -50,7 +51,10 @@ export default function Students() {
       <Header>
         <h2>Gerenciando Alunos</h2>
         <div>
-          <button type="button">
+          <button
+            type="button"
+            onClick={() => history.push('/students/create')}
+          >
             <MdAdd size={20} color="#fff" style={{ marginRight: '5' }} />{' '}
             Cadastrar
           </button>
@@ -87,6 +91,9 @@ export default function Students() {
                       type="button"
                       title="Clique para editar o aluno"
                       className="btn btn-edit"
+                      onClick={() =>
+                        history.push(`/students/${student.id}/edit`)
+                      }
                     >
                       EDITAR
                     </button>
