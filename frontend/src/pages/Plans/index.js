@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { MdAdd } from 'react-icons/md';
 
 import api from '../../services/api';
+import history from '../../services/history';
 
 import { formatPrice } from '../../util/format';
 
@@ -57,7 +58,7 @@ export default function Plans() {
     <Container>
       <Header>
         <h2>Gerenciando Planos</h2>
-        <button type="button">
+        <button type="button" onClick={() => history.push('/plans/create')}>
           <MdAdd size={20} color="#fff" style={{ marginRight: '5' }} />{' '}
           Cadastrar
         </button>
@@ -86,6 +87,7 @@ export default function Plans() {
                       type="button"
                       title="Clique para editar o aluno"
                       className="btn btn-edit"
+                      onClick={() => history.push(`/plans/${plan.id}/edit`)}
                     >
                       EDITAR
                     </button>
