@@ -6,6 +6,7 @@ import SignIn from '../pages/SignIn';
 import Dashboard from '../pages/Dashboard';
 import Students from '../pages/Students';
 import ManageStudents from '../pages/ManageStudents';
+import ManagePlans from '../pages/ManagePlans';
 import Registrations from '../pages/Registrations';
 import Plans from '../pages/Plans';
 import HelpOrders from '../pages/HelpOrders';
@@ -30,6 +31,8 @@ export default function Routes() {
       />
       <Route path="/students" component={Students} isPrivate />
       <Route path="/registrations" component={Registrations} isPrivate />
+      <Route path="/plans/:id/edit" exact component={ManagePlans} isPrivate />
+      <Route path="/plans/create" exact component={ManagePlans} isPrivate />
       <Route path="/plans" component={Plans} isPrivate />
       <Route path="/help-orders" component={HelpOrders} isPrivate />
     </Switch>
