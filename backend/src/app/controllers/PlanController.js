@@ -15,6 +15,17 @@ class PlanController {
     return response.status(200).json(plans);
   }
 
+  async show(request, response) {
+    const { id } = request.params;
+    const plan = await Plan.findByPk(id);
+
+    if (!plan) {
+      return response.status(400).json({ error: 'Plan not found' });
+    }
+
+    return response.status(200).json(plan);
+  }
+
   async store(request, response) {
     const schema = Yup.object().shape({
       title: Yup.string().required(),
