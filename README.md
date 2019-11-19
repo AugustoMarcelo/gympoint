@@ -64,12 +64,20 @@ Você precisará ter instalado na sua máquina o **Node.js**, o **Yarn** e o **D
 <img src="./previews/list_students.png" alt="Tela de listagem de alunos" />
 
 ---
+## Tela de Cadastro/Edição de Alunos
+<img src="./previews/manage_students.png" alt="Tela de cadastro/edição de alunos">
+
+---
 ## Tela de Listagem de Matrículas
 <img src="./previews/list_registrations.png" alt="Tela de listagem de matrículas" />
 
 ---
 ## Tela de Listagem de Planos
 <img src="./previews/list_plans.png" alt="Tela de listagem de planos" />
+
+---
+## Tela de Cadastro/Edição de Planos
+<img src="./previews/manage_plans.png" alt="Tela de cadastro/edição de planos">
 
 ---
 ## Tela de Listagem de Pedidos de Auxílio
