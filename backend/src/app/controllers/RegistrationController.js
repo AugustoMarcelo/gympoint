@@ -91,6 +91,35 @@ class RegistrationController {
     return response.status(201).json(registration);
   }
 
+  async show(request, response) {
+    const { id } = request.params;
+
+    const registration = await Registration.findByPk(id, {
+      include: [
+        {
+          model: Student,
+          as: 'student',
+          attributes: {
+            exclude: ['createdAt', 'updatedAt'],
+          },
+        },
+        {
+          model: Plan,
+          as: 'plan',
+          attributes: {
+            exclude: ['createdAt', 'updatedAt'],
+          },
+        },
+      ],
+    });
+
+    if (!registration) {
+      return response.status(404).json({ error: 'Registration not found' });
+    }
+
+    return response.status(200).json(registration);
+  }
+
   async update(request, response) {
     const schema = Yup.object().shape({
       start_date: Yup.date(),
