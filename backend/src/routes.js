@@ -36,6 +36,7 @@ routes.delete('/plans/:id', PlanController.delete);
 
 // Registration routes (available only for administrators)
 routes.get('/registrations', RegistrationController.index);
+routes.get('/registrations/:id', RegistrationController.show);
 routes.post(
   '/students/:student_id/registrations',
   RegistrationController.store
