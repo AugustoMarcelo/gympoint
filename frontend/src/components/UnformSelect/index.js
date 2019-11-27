@@ -69,7 +69,7 @@ export default function UnformSelect({
 UnformSelect.propTypes = {
   name: PropTypes.string.isRequired,
   label: PropTypes.string,
-  options: PropTypes.arrayOf,
+  options: PropTypes.arrayOf(PropTypes.any),
   multiple: PropTypes.bool,
 };
 
