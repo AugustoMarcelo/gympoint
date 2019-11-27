@@ -3,10 +3,15 @@ import React, { useEffect, useState } from 'react';
 import api from '../../services/api';
 
 import Pagination from '../../components/Pagination';
+import Modal from '../../components/Modal';
 
 import { Container, Header, Content, EmptyContent } from './styles';
 
 export default function HelpOrders() {
+  const [modalData, setModalData] = useState({
+    status: false,
+    values: {},
+  });
   const [helpOrders, setHelpOrders] = useState([]);
   const [pagination, setPagination] = useState({
     page: 1,
@@ -44,8 +49,14 @@ export default function HelpOrders() {
     });
   }
 
+  function handleSubmitAnswer(data) {
+    console.tron.log(data);
+    setModalData({ ...modalData, status: false });
+  }
+
   return (
     <Container>
+      <Modal data={modalData} onHandleSubmit={handleSubmitAnswer} />
       <Header>
         <h2>Pedidos de Auxílio</h2>
       </Header>
@@ -63,7 +74,13 @@ export default function HelpOrders() {
                 <tr key={helpOrder.id}>
                   <td>{helpOrder.student.name}</td>
                   <td className="actions">
-                    <button type="button" className="btn">
+                    <button
+                      type="button"
+                      className="btn"
+                      onClick={() =>
+                        setModalData({ status: true, values: { ...helpOrder } })
+                      }
+                    >
                       RESPONDER
                     </button>
                   </td>
