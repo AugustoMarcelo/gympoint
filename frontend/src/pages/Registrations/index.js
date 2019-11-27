@@ -4,6 +4,7 @@ import { format, parseISO } from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
 
 import api from '../../services/api';
+import history from '../../services/history';
 
 import Pagination from '../../components/Pagination';
 
@@ -51,7 +52,10 @@ export default function Registrations() {
     <Container>
       <Header>
         <h2>Gerenciando Matrículas</h2>
-        <button type="button">
+        <button
+          type="button"
+          onClick={() => history.push('/registrations/create')}
+        >
           <MdAdd size={20} color="#fff" style={{ marginRight: '5' }} />{' '}
           Cadastrar
         </button>
@@ -100,6 +104,9 @@ export default function Registrations() {
                       type="button"
                       title="Clique para editar o aluno"
                       className="btn btn-edit"
+                      onClick={() =>
+                        history.push(`/registrations/${registration.id}/edit`)
+                      }
                     >
                       EDITAR
                     </button>
