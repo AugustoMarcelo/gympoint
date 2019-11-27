@@ -31,8 +31,9 @@ module.exports = {
     'react/require-default-props': 'off',
     'no-console': ['error', { allow: ['tron'] }],
     'no-param-reassign': 'off',
-    'react/jsx-props-no-spreading': ['error', {
-      custom: 'enforce'
+    'react/jsx-props-no-spreading': 'off',
+    'jsx-a11y/label-has-associated-control': ['error', {
+      "assert": "either"
     }]
   },
 };
