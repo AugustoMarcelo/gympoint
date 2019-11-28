@@ -22,11 +22,34 @@ export const Container = styled.div`
     max-width: 450px;
     padding: 20px;
 
-    strong {
-      text-transform: uppercase;
-      color: #444;
-      font-weight: bold;
-      margin-bottom: 10px;
+    div.header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      strong {
+        text-transform: uppercase;
+        color: #444;
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+
+      span {
+        cursor: pointer;
+
+        svg {
+          transition: all 0.2s;
+          &:hover {
+            color: ${darken(0.5, '#444')} !important;
+          }
+        }
+
+        &:focus {
+          svg {
+            color: ${darken(0.5, '#444')} !important;
+          }
+        }
+      }
     }
 
     p {
@@ -50,8 +73,15 @@ export const Container = styled.div`
       height: 100px;
       padding: 15px;
       border-radius: 4px;
-      margin-bottom: 15px;
+      margin-bottom: 10px;
       color: #444;
+    }
+
+    span {
+      color: #ee4d64;
+      align-self: flex-start;
+      margin: 0 0px 10px;
+      font-weight: 700;
     }
 
     button {
@@ -65,8 +95,13 @@ export const Container = styled.div`
       padding: 0 15px;
       transition: background 0.2s;
 
-      &:hover {
+      &:hover:not([disabled]) {
         background: ${darken(0.1, '#ee4d64')};
+      }
+
+      &[disabled] {
+        background: #ccc;
+        cursor: not-allowed;
       }
     }
   }
