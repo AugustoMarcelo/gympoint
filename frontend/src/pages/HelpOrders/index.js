@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 
 import api from '../../services/api';
+
+import { updateRequest } from '../../store/modules/helporder/actions';
 
 import Pagination from '../../components/Pagination';
 import Modal from '../../components/Modal';
@@ -8,8 +11,10 @@ import Modal from '../../components/Modal';
 import { Container, Header, Content, EmptyContent } from './styles';
 
 export default function HelpOrders() {
+  const dispatch = useDispatch();
   const [modalData, setModalData] = useState({
     status: false,
+    loading: false,
     values: {},
   });
   const [helpOrders, setHelpOrders] = useState([]);
@@ -49,14 +54,23 @@ export default function HelpOrders() {
     });
   }
 
-  function handleSubmitAnswer(data) {
-    console.tron.log(data);
+  async function handleSubmitAnswer(data) {
+    setModalData({ ...modalData, loading: true });
+    dispatch(updateRequest(data));
+    setModalData({ ...modalData, status: false, loading: false });
+  }
+
+  function handleCloseModal() {
     setModalData({ ...modalData, status: false });
   }
 
   return (
     <Container>
-      <Modal data={modalData} onHandleSubmit={handleSubmitAnswer} />
+      <Modal
+        data={modalData}
+        onHandleSubmit={handleSubmitAnswer}
+        onClose={handleCloseModal}
+      />
       <Header>
         <h2>Pedidos de Auxílio</h2>
       </Header>
