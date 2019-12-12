@@ -26,6 +26,7 @@ routes.get('/students', StudentController.index);
 routes.post('/students', StudentController.store);
 routes.put('/students/:id', StudentController.update);
 routes.get('/students/:id', StudentController.show);
+routes.delete('/students/:id', StudentController.delete);
 
 // Plan routes (available only for administrators)
 routes.get('/plans', PlanController.index);
