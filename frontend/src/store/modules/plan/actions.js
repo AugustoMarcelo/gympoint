@@ -11,3 +11,10 @@ export function updateRequest(data, id) {
     payload: { data, id },
   };
 }
+
+export function deleteRequest(id) {
+  return {
+    type: '@plan/DELETE_REQUEST',
+    payload: { id },
+  };
+}
