@@ -108,6 +108,21 @@ class StudentController {
 
     return response.status(200).json(student);
   }
+
+  async delete(request, response) {
+    const { id } = request.params;
+    const student = await Student.findByPk(id);
+
+    if (!student) {
+      return response.status(404).json({ error: 'Student not found' });
+    }
+
+    await student.destroy();
+
+    return response
+      .status(200)
+      .json({ message: 'Student successfully removed' });
+  }
 }
 
 export default new StudentController();
