@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { MdAdd, MdCheckCircle, MdCancel } from 'react-icons/md';
 
 import api from '../../services/api';
@@ -8,7 +9,10 @@ import Pagination from '../../components/Pagination';
 
 import { Container, Header, Content, EmptyContent } from './styles';
 
+import { deleteRequest } from '../../store/modules/student/actions';
+
 export default function Students() {
+  const dispatch = useDispatch();
   const [students, setStudents] = useState([]);
   const [pagination, setPagination] = useState({
     page: 1,
@@ -44,6 +48,14 @@ export default function Students() {
       ...pagination,
       page: page - 1,
     });
+  }
+
+  function deleteStudent(id) {
+    const result = window.confirm('Deseja realmente remover este aluno?');
+
+    if (result) {
+      dispatch(deleteRequest(id));
+    }
   }
 
   return (
@@ -101,6 +113,7 @@ export default function Students() {
                       type="button"
                       title="Clique para remover o aluno"
                       className="btn btn-delete"
+                      onClick={() => deleteStudent(student.id)}
                     >
                       APAGAR
                     </button>
