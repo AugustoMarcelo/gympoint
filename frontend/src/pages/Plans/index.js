@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { MdAdd } from 'react-icons/md';
 
 import api from '../../services/api';
@@ -10,7 +11,10 @@ import Pagination from '../../components/Pagination';
 
 import { Container, Header, Content, EmptyContent } from './styles';
 
+import { deleteRequest } from '../../store/modules/plan/actions';
+
 export default function Plans() {
+  const dispatch = useDispatch();
   const [plans, setPlans] = useState([]);
   const [pagination, setPagination] = useState({
     page: 1,
@@ -54,6 +58,14 @@ export default function Plans() {
     });
   }
 
+  function deletePlan(id) {
+    const result = window.confirm('Deseja realmente remover este plano?');
+
+    if (result) {
+      dispatch(deleteRequest(id));
+    }
+  }
+
   return (
     <Container>
       <Header>
@@ -95,6 +107,7 @@ export default function Plans() {
                       type="button"
                       title="Clique para remover o aluno"
                       className="btn btn-delete"
+                      onClick={() => deletePlan(plan.id)}
                     >
                       APAGAR
                     </button>
