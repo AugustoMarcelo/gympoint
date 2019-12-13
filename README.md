@@ -51,11 +51,18 @@ Você precisará ter instalado na sua máquina o **Node.js**, o **Yarn** e o **D
 
 # Instruções para o frontend
 
- - Executar o comando `yarn` para fazer o dowload de todas as dependências necessárias para executar o projeto;
+ - Executar o comando `yarn` para fazer o download de todas as dependências necessárias para executar o projeto;
 
  - Feitos os downloads de todas as dependências, execute `yarn start` para inicilizar o frontend da aplicação;
 
-# Previews
+# Instruções para o mobile
+
+ - Executar o comando `yarn` para fazer o download de todas as dependências necessárias para executar o projeto;
+
+ - Feitos os downloads de todas as dependências, execute `yarn android`, caso seja a primeira execução, ou `yarn start` para inicilizar o aplicativo;
+
+
+# Previews - *Frontend*
 ## Tela de Login
 <img src="./previews/sign_in.png" alt="Tela de login" />
 
@@ -82,3 +89,8 @@ Você precisará ter instalado na sua máquina o **Node.js**, o **Yarn** e o **D
 ---
 ## Tela de Listagem de Pedidos de Auxílio
 <img src="./previews/list_help-orders.png" alt="Tela de listagem de pedidos de auxílio" />
+
+# Previews - *Mobile*
+
+## Tela de Login (Aluno/Mobile)
+<img src="./previews/login_mobile.jpg" alt="Tela de Login na versão mobile" height="600px" />
