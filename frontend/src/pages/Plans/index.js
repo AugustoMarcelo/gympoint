@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { MdAdd } from 'react-icons/md';
+import { toast } from 'react-toastify';
 
 import api from '../../services/api';
 import history from '../../services/history';
@@ -11,10 +11,7 @@ import Pagination from '../../components/Pagination';
 
 import { Container, Header, Content, EmptyContent } from './styles';
 
-import { deleteRequest } from '../../store/modules/plan/actions';
-
 export default function Plans() {
-  const dispatch = useDispatch();
   const [plans, setPlans] = useState([]);
   const [pagination, setPagination] = useState({
     page: 1,
@@ -58,11 +55,16 @@ export default function Plans() {
     });
   }
 
-  function deletePlan(id) {
+  async function deletePlan(id) {
     const result = window.confirm('Deseja realmente remover este plano?');
 
     if (result) {
-      dispatch(deleteRequest(id));
+      const { status } = await api.delete(`/plans/${id}`);
+
+      if (status === 200) {
+        toast.success('Plano removido com sucesso.');
+        setPlans(plans.filter(plan => plan.id !== id));
+      }
     }
   }
 

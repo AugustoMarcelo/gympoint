@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { MdAdd, MdCheckCircle, MdCancel } from 'react-icons/md';
 import { format, parseISO } from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
+import { toast } from 'react-toastify';
 
 import api from '../../services/api';
 import history from '../../services/history';
@@ -46,6 +47,21 @@ export default function Registrations() {
       ...pagination,
       page: page + 1,
     });
+  }
+
+  async function deleteRegistration(id) {
+    const result = window.confirm('Deseja realmente remover esta matrícula?');
+
+    if (result) {
+      const { status } = await api.delete(`/registrations/${id}`);
+
+      if (status === 200) {
+        toast.success('Matrícula removida com sucesso.');
+        setRegistrations(
+          registrations.filter(registration => registration.id !== id)
+        );
+      }
+    }
   }
 
   return (
@@ -114,6 +130,7 @@ export default function Registrations() {
                       type="button"
                       title="Clique para remover o aluno"
                       className="btn btn-delete"
+                      onClick={() => deleteRegistration(registration.id)}
                     >
                       APAGAR
                     </button>
