@@ -33,21 +33,7 @@ export function* updatePlan({ payload }) {
   }
 }
 
-export function* deletePlan({ payload }) {
-  try {
-    const { id } = payload;
-
-    yield call(api.delete, `/plans/${id}`);
-
-    toast.success('Plano removido com sucesso');
-    window.location.reload();
-  } catch (error) {
-    toast.error(error.response.data.error);
-  }
-}
-
 export default all([
   takeLatest('@plan/ADD_REQUEST', addPlan),
   takeLatest('@plan/UPDATE_REQUEST', updatePlan),
-  takeLatest('@plan/DELETE_REQUEST', deletePlan),
 ]);
