@@ -60,7 +60,6 @@ export default function ListPage({ navigation }) {
 
   return (
     <Container>
-      <Header />
       <Content>
         <Button onPress={handleCreate}>
           <ButtonText>Novo pedido de auxílio</ButtonText>

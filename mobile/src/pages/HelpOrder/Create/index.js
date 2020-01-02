@@ -9,7 +9,6 @@ export default function Create() {
 
   return (
     <>
-      <Header />
       <Content>
         <Input
           autoCapitalize="none"

@@ -23,7 +23,6 @@ const styles = StyleSheet.create({
 export default function Show() {
   return (
     <>
-      <Header />
       <Container>
         <View style={styles.flex}>
           <Label>Pergunta</Label>
