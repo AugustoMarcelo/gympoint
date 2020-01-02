@@ -3,6 +3,7 @@ import { createBottomTabNavigator } from 'react-navigation-tabs';
 
 import Login from './pages/Login';
 import Checkins from './pages/Checkins';
+import HelpOrder from './pages/HelpOrder';
 
 export default createAppContainer(
   createSwitchNavigator({
@@ -10,6 +11,7 @@ export default createAppContainer(
     Main: createBottomTabNavigator(
       {
         Checkins,
+        HelpOrder,
       },
       {
         tabBarOptions: {
