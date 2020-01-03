@@ -1,7 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { Text, StyleSheet } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
+import { parseISO, formatDistance } from 'date-fns';
+import ptBR from 'date-fns/locale/pt-BR';
 
 import Header from '../../components/Header';
 
@@ -14,6 +17,8 @@ import {
   ListItem,
 } from './styles';
 
+import api from '../../services/api';
+
 const styles = StyleSheet.create({
   number: {
     fontWeight: 'bold',
@@ -23,45 +28,27 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function Checkins() {
-  const [checkins, setCheckins] = useState([
-    {
-      id: 1,
-      date: 'Hoje às 14h',
-    },
-    {
-      id: 2,
-      date: 'Ontem às 20h',
-    },
-    {
-      id: 3,
-      date: 'Há 3 dias',
-    },
-    {
-      id: 4,
-      date: 'Há 1 semana',
-    },
-    {
-      id: 5,
-      date: 'Há 2 semanas',
-    },
-    {
-      id: 6,
-      date: 'Há 1 mês',
-    },
-    {
-      id: 7,
-      date: 'Há 3 meses',
-    },
-    {
-      id: 8,
-      date: 'Há 4 meses',
-    },
-    {
-      id: 9,
-      date: 'Há 5 meses',
-    },
-  ]);
+export default function Checkins({ navigation }) {
+  const [checkins, setCheckins] = useState([]);
+
+  useEffect(() => {
+    async function loadCheckins() {
+      const id = await AsyncStorage.getItem('id');
+      const response = await api.get(`/students/${id}/checkins`);
+
+      setCheckins(
+        response.data.rows.map(checkin => ({
+          id: checkin.id,
+          date: formatDistance(parseISO(checkin.createdAt), new Date(), {
+            addSuffix: true,
+            locale: ptBR,
+          }),
+        }))
+      );
+    }
+
+    loadCheckins();
+  }, []);
 
   return (
     <Container>
