@@ -173,3 +173,57 @@ Abaixo, seguem as rotas disponíveis, que tipo de parâmetros podem ser utilizad
       ]
     }
     ```
+---
+
+# Listagem de Pedidos de Auxílio do aluno [GET /students/{:id}/help-orders]
++ Response `200` (application/json)
+
+  + Parameters
+
+    | Parameter | Description | Parameter Type     | Default Value  |
+    |-----------|-------------|--------------------|---------------|
+    | page      | Número da página a ser retornada | Query (*optional*) | 1 |
+    | limit     | Quantidade de itens por requisição | Query (*optional*) | 10 |
+    | id        | ID do aluno | Path | - |
+  
+  + Body
+
+    ```json
+    {
+      "count": 1,
+      "rows": [
+        {
+          "id": 1,
+          "question": "Como posso fazer para marcar uma avaliação?",
+          "answer": "Você pode entrar em contato conosco através do 4002-8922. Iremos encaminhá-lo para um de nossos profissionais conveniados.",
+          "answer_at": "2019-11-27T22:35:13.926Z",
+          "createdAt": "2019-10-25T11:25:42.613Z",
+          "updatedAt": "2019-11-27T22:35:14.043Z"
+        }
+      ],
+    }
+    ```
+---
+
+# Realizar checkin [POST /students/{:id}/checkins]
++ Response `201` (application/json)
+
+  + Parameters
+
+    | Parameter | Description | Parameter Type     | Default Value  |
+    |-----------|-------------|--------------------|---------------|
+    | page      | Número da página a ser retornada | Query (*optional*) | 1 |
+    | limit     | Quantidade de itens por requisição | Query (*optional*) | 10 |
+    | id        | ID do aluno | Path | - |
+  
+  + Body
+
+    ```json
+    {
+      "id": 6,
+      "student_id": 3,
+      "createdAt": "2019-10-24T12:02:59.526Z",
+      "updatedAt": "2019-10-24T12:02:59.526Z"
+    }
+    ```
+---
