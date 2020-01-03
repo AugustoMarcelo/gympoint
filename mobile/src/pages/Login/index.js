@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Platform, Image } from 'react-native';
+import { Platform, Image, ToastAndroid } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 
 import logo from '../../assets/logo.png';
 
@@ -9,7 +10,12 @@ export default function Login({ navigation }) {
   const [id, setId] = useState('');
 
   async function handleLogin() {
-    navigation.navigate('Main', { id });
+    if (id) {
+      await AsyncStorage.setItem('id', id);
+      navigation.navigate('Main');
+    } else {
+      ToastAndroid.show('Você precisa informar o seu ID', ToastAndroid.LONG);
+    }
   }
 
   return (
