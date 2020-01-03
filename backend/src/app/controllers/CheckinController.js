@@ -1,11 +1,20 @@
 import { Op } from 'sequelize';
 import { subDays } from 'date-fns';
+import * as Yup from 'yup';
 
 import Student from '../models/Student';
 import Checkin from '../models/Checkin';
 
 class CheckinController {
   async index(request, response) {
+    const schema = Yup.object().shape({
+      id: Yup.number(),
+    });
+
+    if (!(await schema.isValid(request.params))) {
+      return response.status(400).json({ error: 'Validation fails' });
+    }
+
     const { page = 1, limit = 10 } = request.query;
     const offset = (page - 1) * limit;
 
@@ -21,6 +30,7 @@ class CheckinController {
       where: { student_id },
       limit,
       offset,
+      order: [['id', 'DESC']],
     });
 
     return response.status(200).json(checkins);
