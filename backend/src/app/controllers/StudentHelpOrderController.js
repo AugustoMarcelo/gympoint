@@ -22,6 +22,9 @@ class StudentHelpOrderController {
       },
       limit,
       offset,
+      attributes: {
+        exclude: ['student_id'],
+      },
     });
 
     return response.status(200).json(helpOrders);
