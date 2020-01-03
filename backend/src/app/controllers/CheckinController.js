@@ -37,6 +37,14 @@ class CheckinController {
   }
 
   async store(request, response) {
+    const schema = Yup.object().shape({
+      id: Yup.number(),
+    });
+
+    if (!(await schema.isValid(request.params))) {
+      return response.status(400).json({ error: 'Validation fails' });
+    }
+
     const { id } = request.params;
 
     const student = await Student.findByPk(id);
@@ -58,7 +66,7 @@ class CheckinController {
     });
 
     if (count >= 5) {
-      return response.json({
+      return response.status(200).json({
         error: 'You have reached your limit of 5 check ins per week',
       });
     }
