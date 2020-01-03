@@ -19,6 +19,9 @@ routes.post('/sessions', SessionController.store);
 routes.get('/students/:id/help-orders', StudentHelpOrderController.index);
 // Allow the student create a help order
 routes.post('/students/:id/help-orders', StudentHelpOrderController.store);
+// Checkin routes
+routes.get('/students/:id/checkins', CheckinController.index);
+routes.post('/students/:id/checkins', CheckinController.store);
 
 routes.use(authMiddleware);
 
@@ -44,10 +47,6 @@ routes.post(
 );
 routes.put('/registrations/:id', RegistrationController.update);
 routes.delete('/registrations/:id', RegistrationController.delete);
-
-// Checkin routes
-routes.get('/students/:id/checkins', CheckinController.index);
-routes.post('/students/:id/checkins', CheckinController.store);
 
 // List all the help orders without answers
 routes.get('/help-orders/no-answers', NoAnswerHelpOrderController.index);
