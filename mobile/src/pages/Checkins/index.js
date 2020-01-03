@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { Text, StyleSheet } from 'react-native';
+import { Text, StyleSheet, ToastAndroid } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import { parseISO, formatDistance } from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
@@ -30,31 +30,51 @@ const styles = StyleSheet.create({
 
 export default function Checkins({ navigation }) {
   const [checkins, setCheckins] = useState([]);
+  const [id, setId] = useState();
+
+  async function loadCheckins() {
+    const userId = await AsyncStorage.getItem('id');
+    setId(userId);
+    const response = await api.get(`/students/${userId}/checkins`);
+
+    setCheckins(
+      response.data.rows.map(checkin => ({
+        id: checkin.id,
+        date: formatDistance(parseISO(checkin.createdAt), new Date(), {
+          addSuffix: true,
+          locale: ptBR,
+        }),
+      }))
+    );
+  }
 
   useEffect(() => {
-    async function loadCheckins() {
-      const id = await AsyncStorage.getItem('id');
-      const response = await api.get(`/students/${id}/checkins`);
-
-      setCheckins(
-        response.data.rows.map(checkin => ({
-          id: checkin.id,
-          date: formatDistance(parseISO(checkin.createdAt), new Date(), {
-            addSuffix: true,
-            locale: ptBR,
-          }),
-        }))
-      );
-    }
-
     loadCheckins();
-  }, []);
+  }, [id]);
+
+  async function handleCheckin() {
+    const { status } = await api.post(`/students/${id}/checkins`);
+
+    ToastAndroid.show(getMessageStatus(status), ToastAndroid.LONG);
+  }
+
+  function getMessageStatus(status) {
+    const messages = {
+      200: () => 'Você atingiu seu limite de 5 check-ins por semana!',
+      201: () => {
+        loadCheckins();
+        return 'Check-in registrado com sucesso.';
+      },
+      default: () => 'Não foi possível realizar check-in.',
+    };
+    return (messages[status] || messages.default)();
+  }
 
   return (
     <Container>
       <Header />
       <Content>
-        <Button>
+        <Button onPress={handleCheckin}>
           <ButtonText>Novo Check-in</ButtonText>
         </Button>
         <List
