@@ -26,7 +26,7 @@ export default createStackNavigator(
     defaultNavigationOptions: {
       headerBackground: <Header />,
       headerBackImage: () => (
-        <Icon name="chevron-left" size={24} color="#000" />
+        <Icon name="arrow-back" size={24} color="#000" />
       ),
       headerBackTitle: null,
     },
