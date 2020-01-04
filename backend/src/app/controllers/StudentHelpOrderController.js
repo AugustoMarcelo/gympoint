@@ -22,6 +22,7 @@ class StudentHelpOrderController {
       },
       limit,
       offset,
+      order: [['updatedAt', 'DESC']],
       attributes: {
         exclude: ['student_id'],
       },
