@@ -1,8 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
-import Header from '../../../components/Header';
-
 import { Container, Label } from './styles';
 
 const styles = StyleSheet.create({
@@ -20,24 +18,18 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function Show() {
+export default function Show({ navigation }) {
+  const helpOrder = navigation.getParam('helpOrder');
+
   return (
-    <>
-      <Container>
-        <View style={styles.flex}>
-          <Label>Pergunta</Label>
-          <Text style={styles.hour}>Hoje às 14h</Text>
-        </View>
-        <Text style={styles.text}>
-          Olá pessoal da academia, gostaria de saber se quando acordar devo
-          ingerir batata doce e frango logo de primeira, preparar as...
-        </Text>
-        <Label>Resposta</Label>
-        <Text style={styles.text}>
-          Opa, isso aí, duas em duas horas, não deixa pra depois, um monstro
-          treina como um, come como dois.
-        </Text>
-      </Container>
-    </>
+    <Container>
+      <View style={styles.flex}>
+        <Label>Pergunta</Label>
+        <Text style={styles.hour}>{helpOrder.date}</Text>
+      </View>
+      <Text style={styles.text}>{helpOrder.question}</Text>
+      <Label>Resposta</Label>
+      <Text style={styles.text}>{helpOrder.answer || 'Sem resposta'}</Text>
+    </Container>
   );
 }
