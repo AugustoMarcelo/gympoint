@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
+import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { MdKeyboardArrowLeft, MdCheck } from 'react-icons/md';
 import { Form, Input } from '@rocketseat/unform';
@@ -12,6 +13,8 @@ import UnformSelect from '../../components/UnformSelect';
 import UnformAsyncSelect from '../../components/UnformAsyncSelect';
 import { formatPrice } from '../../util/format';
 
+import { addRequest } from '../../store/modules/registration/actions';
+
 import { Container, Header, Content } from './styles';
 
 export default function ManageRegistrations({ match }) {
@@ -22,6 +25,8 @@ export default function ManageRegistrations({ match }) {
   const [startDate, setStartDate] = useState(new Date());
   const [inputStudent, setInputStudent] = useState('');
   const btnSubmit = useRef();
+
+  const dispatch = useDispatch();
 
   const endDate = useMemo(
     () => addMonths(startDate, planSelected.duration || 0),
@@ -66,7 +71,9 @@ export default function ManageRegistrations({ match }) {
   }
 
   function handleSubmit(data, { resetForm }) {
-    console.tron.log(data);
+    data.student_id = inputStudent.id;
+    dispatch(addRequest(data));
+    // resetForm();
   }
 
   async function getStudents(value) {
