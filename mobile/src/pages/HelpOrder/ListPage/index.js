@@ -16,6 +16,7 @@ import {
   ListItem,
   StatusQuestion,
   Question,
+  Loading
 } from './styles';
 
 const styles = StyleSheet.create({
@@ -37,12 +38,20 @@ const styles = StyleSheet.create({
 
 export default function ListPage({ navigation }) {
   const [helpOrders, setHelpOrders] = useState([]);
+  const [id, setId] = useState();
+  const [loading, setLoading] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
+  const [page, setPage] = useState(1);
+  const [total, setTotal] = useState(0);
 
   async function loadHelpOrders() {
-    const id = await AsyncStorage.getItem('id');
-
-    const response = await api.get(`/students/${id}/help-orders`);
+    const userId = await AsyncStorage.getItem('id');
+    setId(userId);
+    const response = await api.get(`/students/${userId}/help-orders`, {
+      params: {
+        page,
+      }
+    });
 
     setHelpOrders(
       response.data.rows.map(helpOrder => ({
@@ -53,6 +62,29 @@ export default function ListPage({ navigation }) {
         }),
       }))
     );
+    setTotal(response.data.count);
+  }
+
+  async function loadMore() {
+    if (total && helpOrders.length === total) return;
+
+    setLoading(true);
+
+    const response = await api.get(`/students/${id}/help-orders`, {
+      params: {
+        page: page + 1,
+      }
+    });
+
+    setPage(page + 1);
+    setHelpOrders([...helpOrders, response.data.rows.map(helpOrder => ({
+      ...helpOrder,
+      date: formatDistance(parseISO(helpOrder.createdAt), new Date(), {
+        addSuffix: true,
+        locale: ptBR,
+      }),
+    }))]);
+    setLoading(false);
   }
 
   async function refreshList() {
@@ -87,6 +119,9 @@ export default function ListPage({ navigation }) {
           keyExtractor={helpOrder => String(helpOrder.id)}
           onRefresh={refreshList}
           refreshing={refreshing}
+          onEndReachedThreshold={0.2}
+          onEndReached={loadMore}
+          ListFooterComponent={loading && <Loading />}
           renderItem={({ item }) => (
             <ListItem onPress={() => handleShowInfo(item.id)}>
               <View style={styles.info}>

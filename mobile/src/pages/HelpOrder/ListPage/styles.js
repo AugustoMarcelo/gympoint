@@ -48,3 +48,10 @@ export const Question = styled.Text`
   color: #666;
   font-size: 14px;
 `;
+
+export const Loading = styled.ActivityIndicator.attrs({
+  size: 'small',
+  color: '#999',
+})`
+  margin: 30px 0;
+`;
