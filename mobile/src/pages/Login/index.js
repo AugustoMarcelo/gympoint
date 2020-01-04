@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Platform, Image, ToastAndroid } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 
+import api from '../../services/api';
+
 import logo from '../../assets/logo.png';
 
 import { Container, Title, Input, Button, ButtonText } from './styles';
@@ -11,8 +13,19 @@ export default function Login({ navigation }) {
 
   async function handleLogin() {
     if (id) {
-      await AsyncStorage.setItem('id', id);
-      navigation.navigate('Main');
+      try {
+        const { status } = await api.get(`/students/${id}/validate`);
+        if (status === 200) {
+          await AsyncStorage.setItem('id', id);
+          navigation.navigate('Main');
+          ToastAndroid.show(
+            'Aluno validado! Seja bem-vindo',
+            ToastAndroid.LONG
+          );
+        }
+      } catch (error) {
+        ToastAndroid.show('Aluno não encontrado', ToastAndroid.LONG);
+      }
     } else {
       ToastAndroid.show('Você precisa informar o seu ID', ToastAndroid.LONG);
     }
