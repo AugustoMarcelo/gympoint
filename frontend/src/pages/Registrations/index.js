@@ -8,6 +8,7 @@ import api from '../../services/api';
 import history from '../../services/history';
 
 import Pagination from '../../components/Pagination';
+import CustomToast from '../../components/CustomToast';
 
 import { Container, Header, Content, EmptyContent } from './styles';
 
@@ -56,7 +57,7 @@ export default function Registrations() {
       const { status } = await api.delete(`/registrations/${id}`);
 
       if (status === 200) {
-        toast.success('Matrícula removida com sucesso.');
+        toast(<CustomToast message="Matrícula removida com sucesso." />);
         setRegistrations(
           registrations.filter(registration => registration.id !== id)
         );
