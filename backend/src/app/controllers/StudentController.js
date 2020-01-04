@@ -32,7 +32,7 @@ class StudentController {
         {
           model: Registration,
           as: 'registration',
-          attributes: ['end_date'],
+          attributes: ['start_date', 'end_date'],
         },
       ],
     });
