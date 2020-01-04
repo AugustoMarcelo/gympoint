@@ -91,7 +91,7 @@ export const Content = styled.div`
       div.input-field {
         display: flex;
         flex-direction: column;
-        width: 100%;
+        /* width: 100%; */
         margin-right: 20px;
 
         input[disabled] {
