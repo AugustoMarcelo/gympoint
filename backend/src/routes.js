@@ -8,6 +8,7 @@ import CheckinController from './app/controllers/CheckinController';
 import NoAnswerHelpOrderController from './app/controllers/NoAnswerHelpOrderController';
 import StudentHelpOrderController from './app/controllers/StudentHelpOrderController';
 import AnswerHelpOrderController from './app/controllers/AnswerHelpOrderController';
+import ValidateStudentController from './app/controllers/ValidateStudentController';
 
 import authMiddleware from './app/middlewares/auth';
 
@@ -22,6 +23,9 @@ routes.post('/students/:id/help-orders', StudentHelpOrderController.store);
 // Checkin routes
 routes.get('/students/:id/checkins', CheckinController.index);
 routes.post('/students/:id/checkins', CheckinController.store);
+
+// Route used on mobile to validate if student ID exists
+routes.get('/students/:id/validate', ValidateStudentController.index);
 
 routes.use(authMiddleware);
 
