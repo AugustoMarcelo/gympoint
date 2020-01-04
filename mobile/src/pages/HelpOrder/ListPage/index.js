@@ -1,8 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import AsyncStorage from '@react-native-community/async-storage';
+import { parseISO, formatDistance } from 'date-fns';
+import ptBR from 'date-fns/locale/pt-BR';
 
-import Header from '../../../components/Header';
+import api from '../../../services/api';
 
 import {
   Container,
@@ -33,25 +36,33 @@ const styles = StyleSheet.create({
 });
 
 export default function ListPage({ navigation }) {
-  const [helpOrders, setHelpOrders] = useState([
-    {
-      id: 1,
-      answer: true,
-      created_at: 'Hoje às 14h',
-      question:
-        'Olá pessoal da academia, gostaria de saber se quando acordar devo ingerir batata doce e frango logo de primeira, preparar as...',
-    },
-    {
-      id: 2,
-      answer: false,
-      created_at: 'Hoje às 14h',
-      question:
-        'Olá pessoal da academia, gostaria de saber se quando acordar devo ingerir batata doce e frango logo de primeira, preparar as...',
-    },
-  ]);
+  const [helpOrders, setHelpOrders] = useState([]);
+
+  useEffect(() => {
+    async function loadHelpOrders() {
+      const id = await AsyncStorage.getItem('id');
+
+      const response = await api.get(`/students/${id}/help-orders`);
+
+      setHelpOrders(
+        response.data.rows.map(helpOrder => ({
+          ...helpOrder,
+          date: formatDistance(parseISO(helpOrder.createdAt), new Date(), {
+            addSuffix: true,
+            locale: ptBR,
+          }),
+        }))
+      );
+    }
+
+    loadHelpOrders();
+  }, []);
 
   function handleShowInfo(id) {
-    navigation.navigate('Show', { id });
+    const helpOrder = helpOrders.find(help => help.id === id);
+    navigation.navigate('Show', {
+      helpOrder,
+    });
   }
 
   function handleCreate() {
@@ -80,7 +91,7 @@ export default function ListPage({ navigation }) {
                     {item.answer ? 'Respondido' : 'Sem resposta'}
                   </StatusQuestion>
                 </View>
-                <Text style={styles.questionCreate}>{item.created_at}</Text>
+                <Text style={styles.questionCreate}>{item.date}</Text>
               </View>
               <Question>{item.question}</Question>
             </ListItem>
