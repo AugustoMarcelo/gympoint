@@ -26,6 +26,7 @@ export const ButtonText = styled.Text`
 
 export const List = styled.FlatList.attrs({
   showsVerticalScrollIndicator: false,
+  contentContainerStyle: { paddingBottom: 70 },
 })`
   margin-top: 10px;
 `;
@@ -39,4 +40,11 @@ export const ListItem = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+`;
+
+export const Loading = styled.ActivityIndicator.attrs({
+  size: 'small',
+  color: '#999',
+})`
+  margin: 30px 0;
 `;

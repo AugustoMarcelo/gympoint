@@ -37,24 +37,31 @@ const styles = StyleSheet.create({
 
 export default function ListPage({ navigation }) {
   const [helpOrders, setHelpOrders] = useState([]);
+  const [refreshing, setRefreshing] = useState(false);
+
+  async function loadHelpOrders() {
+    const id = await AsyncStorage.getItem('id');
+
+    const response = await api.get(`/students/${id}/help-orders`);
+
+    setHelpOrders(
+      response.data.rows.map(helpOrder => ({
+        ...helpOrder,
+        date: formatDistance(parseISO(helpOrder.createdAt), new Date(), {
+          addSuffix: true,
+          locale: ptBR,
+        }),
+      }))
+    );
+  }
+
+  async function refreshList() {
+    setRefreshing(true);
+    await loadHelpOrders();
+    setRefreshing(false);
+  }
 
   useEffect(() => {
-    async function loadHelpOrders() {
-      const id = await AsyncStorage.getItem('id');
-
-      const response = await api.get(`/students/${id}/help-orders`);
-
-      setHelpOrders(
-        response.data.rows.map(helpOrder => ({
-          ...helpOrder,
-          date: formatDistance(parseISO(helpOrder.createdAt), new Date(), {
-            addSuffix: true,
-            locale: ptBR,
-          }),
-        }))
-      );
-    }
-
     loadHelpOrders();
   }, []);
 
@@ -78,6 +85,8 @@ export default function ListPage({ navigation }) {
         <List
           data={helpOrders}
           keyExtractor={helpOrder => String(helpOrder.id)}
+          onRefresh={refreshList}
+          refreshing={refreshing}
           renderItem={({ item }) => (
             <ListItem onPress={() => handleShowInfo(item.id)}>
               <View style={styles.info}>
@@ -96,6 +105,11 @@ export default function ListPage({ navigation }) {
               <Question>{item.question}</Question>
             </ListItem>
           )}
+          ListEmptyComponent={
+            <View style={{ alignItems: 'center', padding: 10 }}>
+              <Text>Nenhum pedido cadastrado...</Text>
+            </View>
+          }
         />
       </Content>
     </Container>

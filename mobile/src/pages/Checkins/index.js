@@ -15,6 +15,7 @@ import {
   ButtonText,
   List,
   ListItem,
+  Loading
 } from './styles';
 
 import api from '../../services/api';
@@ -31,11 +32,19 @@ const styles = StyleSheet.create({
 export default function Checkins({ navigation }) {
   const [checkins, setCheckins] = useState([]);
   const [id, setId] = useState();
+  const [loading, setLoading] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
+  const [page, setPage] = useState(1);
+  const [total, setTotal] = useState(0);
 
   async function loadCheckins() {
     const userId = await AsyncStorage.getItem('id');
     setId(userId);
-    const response = await api.get(`/students/${userId}/checkins`);
+    const response = await api.get(`/students/${userId}/checkins`, {
+      params: {
+        page,
+      },
+    });
 
     setCheckins(
       response.data.rows.map(checkin => ({
@@ -46,11 +55,34 @@ export default function Checkins({ navigation }) {
         }),
       }))
     );
+    setTotal(response.data.count);
+  }
+
+  async function loadMore() {
+    if (total && checkins.length === total) return;
+
+    setLoading(true);
+
+    const response = await api.get(`/students/${id}/checkins`, {
+      params: {
+        page: page + 1,
+      },
+    });
+
+    setPage(page + 1);
+    setCheckins([...checkins, ...response.data.rows]);
+    setLoading(false);
+  }
+
+  async function refreshList() {
+    setRefreshing(true);
+    await loadCheckins();
+    setRefreshing(false);
   }
 
   useEffect(() => {
     loadCheckins();
-  }, [id]);
+  }, []);
 
   async function handleCheckin() {
     const { status } = await api.post(`/students/${id}/checkins`);
@@ -75,11 +107,16 @@ export default function Checkins({ navigation }) {
       <Header />
       <Content>
         <Button onPress={handleCheckin}>
-          <ButtonText>Novo Check-in</ButtonText>
+          <ButtonText>Novo check-in</ButtonText>
         </Button>
         <List
           data={checkins}
           keyExtractor={checkin => String(checkin.id)}
+          onRefresh={refreshList}
+          refreshing={refreshing}
+          onEndReachedThreshold={0.2}
+          onEndReached={loadMore}
+          ListFooterComponent={loading && <Loading />}
           renderItem={({ item }) => (
             <ListItem>
               <Text style={styles.number}>{`Check-in #${item.id}`}</Text>
