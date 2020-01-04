@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { MdAdd, MdCheckCircle, MdCancel } from 'react-icons/md';
+import { parseISO, isAfter, isBefore } from 'date-fns';
 import { toast } from 'react-toastify';
 
 import api from '../../services/api';
@@ -11,6 +12,7 @@ import { Container, Header, Content, EmptyContent } from './styles';
 
 export default function Students() {
   const [students, setStudents] = useState([]);
+  const [query, setQuery] = useState('');
   const [pagination, setPagination] = useState({
     page: 1,
     limit: 10,
@@ -22,10 +24,23 @@ export default function Students() {
       params: {
         page,
         limit,
+        q: query,
       },
     });
-    setStudents(response.data.rows);
+    setStudents(
+      response.data.rows.map(student => ({
+        ...student,
+        active:
+          student.registration &&
+          (isBefore(parseISO(student.registration.start_date), new Date()) &&
+            isAfter(parseISO(student.registration.end_date), new Date())),
+      }))
+    );
   }
+
+  useEffect(() => {
+    loadStudents();
+  }, [query]);
 
   useEffect(() => {
     loadStudents();
@@ -72,7 +87,12 @@ export default function Students() {
             <MdAdd size={20} color="#fff" style={{ marginRight: '5' }} />{' '}
             Cadastrar
           </button>
-          <input type="text" placeholder="Buscar aluno" />
+          <input
+            type="text"
+            placeholder="Buscar aluno"
+            value={query}
+            onChange={e => setQuery(e.target.value)}
+          />
         </div>
       </Header>
       {students.length ? (
@@ -94,7 +114,7 @@ export default function Students() {
                   <td>{student.email}</td>
                   <td align="center">{student.age}</td>
                   <td align="center">
-                    {student.registration ? (
+                    {student.active ? (
                       <MdCheckCircle size={20} color="#00b894" />
                     ) : (
                       <MdCancel size={20} color="#EE4D64" />
