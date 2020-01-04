@@ -94,3 +94,15 @@ Você precisará ter instalado na sua máquina o **Node.js**, o **Yarn** e o **D
 
 ## Tela de Login (Aluno/Mobile)
 <img src="./previews/login_mobile.jpg" alt="Tela de Login na versão mobile" height="600px" />
+
+## Tela de Listagem de Check-ins (Aluno/Mobile)
+<img src="./previews/list_checkins_mobile.jpg" alt="Tela de Listagem de Check-ins" height="600px" />
+
+## Tela de Listagem de Pedidos de Auxílio (Aluno/Mobile)
+<img src="./previews/list_help-orders_mobile.jpg" alt="Tela de Listagem pedidos de auxílio" height="600px" />
+
+## Tela de Visualização do Pedido de Auxílio (Aluno/Mobile)
+<img src="./previews/show_help-order_mobile.jpg" alt="Tela de visualização do pedido de auxílio" height="600px" />
+
+## Tela de Criação do Pedido de Auxílio (Aluno/Mobile)
+<img src="./previews/create_help-order_mobile.jpg" alt="Tela de criação do pedido de auxílio" height="600px" />
