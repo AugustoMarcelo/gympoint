@@ -33,7 +33,7 @@ export default function Login({ navigation }) {
 
   return (
     <Container behavior="padding" enabled={Platform.OS === 'ios'}>
-      <Image source={logo} />
+      <Image source={logo} width={64} height={64} />
       <Title>GYMPOINT</Title>
       <Input
         autoCapitalize="none"
