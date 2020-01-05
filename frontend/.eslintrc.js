@@ -34,6 +34,13 @@ module.exports = {
     'react/jsx-props-no-spreading': 'off',
     'jsx-a11y/label-has-associated-control': ['error', {
       "assert": "either"
-    }]
+    }],
   },
+  settings: {
+    "import/resolver": {
+      "babel-plugin-root-import": {
+        rootPathSuffix: "src"
+      }
+    }
+  }
 };
