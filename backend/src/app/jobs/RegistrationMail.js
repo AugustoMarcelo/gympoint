@@ -2,6 +2,8 @@ import { parseISO, format } from 'date-fns';
 
 import Mail from '../../lib/Mail';
 
+import { formatPrice } from '../utils/format';
+
 class RegistrationMail {
   get key() {
     return 'RegistrationMail';
@@ -12,13 +14,13 @@ class RegistrationMail {
 
     await Mail.sendMail({
       to: `${student.name} <${student.email}>`,
-      subject: 'Registration Confirmed',
+      subject: 'Gympoint | Matrícula confirmada!',
       template: 'registration',
       context: {
         student: student.name,
         plan: plan.title,
-        end_date: format(parseISO(end_date), 'yyyy-MM-dd'),
-        price,
+        end_date: format(parseISO(end_date), 'dd/MM/yyyy'),
+        price: formatPrice(price),
       },
     });
   }
