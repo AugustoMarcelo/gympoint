@@ -67,7 +67,7 @@ export default function ManageStudents({ match }) {
         <Form initialData={student} onSubmit={handleSubmit}>
           <Input
             name="name"
-            placeholder="Marcelo Augusto"
+            placeholder="Nome do aluno"
             label="Nome Completo"
             autoComplete="off"
           />
