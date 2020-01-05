@@ -5,15 +5,15 @@ import { MdKeyboardArrowLeft, MdCheck } from 'react-icons/md';
 import { Form, Input } from '@rocketseat/unform';
 import { addMonths } from 'date-fns';
 import { useParams } from 'react-router-dom';
-import UnformDatePicker from '../../components/UnformDatePicker';
+import UnformDatePicker from '~/components/UnformDatePicker';
 
-import api from '../../services/api';
-import history from '../../services/history';
-import UnformSelect from '../../components/UnformSelect';
-import UnformAsyncSelect from '../../components/UnformAsyncSelect';
-import { formatPrice } from '../../util/format';
+import api from '~/services/api';
+import history from '~/services/history';
+import UnformSelect from '~/components/UnformSelect';
+import UnformAsyncSelect from '~/components/UnformAsyncSelect';
+import { formatPrice } from '~/util/format';
 
-import { addRequest } from '../../store/modules/registration/actions';
+import { addRequest } from '~/store/modules/registration/actions';
 
 import { Container, Header, Content } from './styles';
 

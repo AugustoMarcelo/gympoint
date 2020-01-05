@@ -4,10 +4,10 @@ import PropTypes from 'prop-types';
 import { MdCheck, MdKeyboardArrowLeft } from 'react-icons/md';
 import { Form, Input } from '@rocketseat/unform';
 
-import history from '../../services/history';
-import api from '../../services/api';
+import history from '~/services/history';
+import api from '~/services/api';
 
-import { addRequest, updateRequest } from '../../store/modules/plan/actions';
+import { addRequest, updateRequest } from '~/store/modules/plan/actions';
 
 import { Container, Header, Content } from './styles';
 

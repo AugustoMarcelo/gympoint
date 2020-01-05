@@ -2,10 +2,10 @@ import React from 'react';
 import { takeLatest, call, all } from 'redux-saga/effects';
 import { toast } from 'react-toastify';
 
-import api from '../../../services/api';
-import history from '../../../services/history';
+import api from '~/services/api';
+import history from '~/services/history';
 
-import CustomToast from '../../../components/CustomToast';
+import CustomToast from '~/components/CustomToast';
 
 export function* addRegistration({ payload }) {
   try {

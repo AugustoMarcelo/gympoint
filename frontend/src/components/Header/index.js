@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { signOut } from '../../store/modules/auth/actions';
+import { signOut } from '~/store/modules/auth/actions';
 
-import logo from '../../assets/logo.png';
+import logo from '~/assets/logo.png';
 import {
   Container,
   ContentLeft,

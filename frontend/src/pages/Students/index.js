@@ -3,10 +3,10 @@ import { MdAdd, MdCheckCircle, MdCancel } from 'react-icons/md';
 import { parseISO, isAfter, isBefore } from 'date-fns';
 import { toast } from 'react-toastify';
 
-import api from '../../services/api';
-import history from '../../services/history';
+import api from '~/services/api';
+import history from '~/services/history';
 
-import Pagination from '../../components/Pagination';
+import Pagination from '~/components/Pagination';
 
 import { Container, Header, Content, EmptyContent } from './styles';
 

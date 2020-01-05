@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { MdAdd } from 'react-icons/md';
 import { toast } from 'react-toastify';
 
-import api from '../../services/api';
-import history from '../../services/history';
+import api from '~/services/api';
+import history from '~/services/history';
 
-import { formatPrice } from '../../util/format';
+import { formatPrice } from '~/util/format';
 
-import Pagination from '../../components/Pagination';
+import Pagination from '~/components/Pagination';
 
 import { Container, Header, Content, EmptyContent } from './styles';
 

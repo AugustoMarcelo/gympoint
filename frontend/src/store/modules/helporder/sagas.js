@@ -2,8 +2,8 @@ import React from 'react';
 import { takeLatest, call, all } from 'redux-saga/effects';
 import { toast } from 'react-toastify';
 
-import CustomToast from '../../../components/CustomToast';
-import api from '../../../services/api';
+import CustomToast from '~/components/CustomToast';
+import api from '~/services/api';
 
 export function* answerHelpOrder({ payload }) {
   try {

@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-import api from '../../services/api';
+import api from '~/services/api';
 
-import { updateRequest } from '../../store/modules/helporder/actions';
+import { updateRequest } from '~/store/modules/helporder/actions';
 
-import Pagination from '../../components/Pagination';
-import Modal from '../../components/Modal';
+import Pagination from '~/components/Pagination';
+import Modal from '~/components/Modal';
 
 import { Container, Header, Content, EmptyContent } from './styles';
 

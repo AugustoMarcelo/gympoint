@@ -4,11 +4,11 @@ import { format, parseISO } from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
 import { toast } from 'react-toastify';
 
-import api from '../../services/api';
-import history from '../../services/history';
+import api from '~/services/api';
+import history from '~/services/history';
 
-import Pagination from '../../components/Pagination';
-import CustomToast from '../../components/CustomToast';
+import Pagination from '~/components/Pagination';
+import CustomToast from '~/components/CustomToast';
 
 import { Container, Header, Content, EmptyContent } from './styles';
 
