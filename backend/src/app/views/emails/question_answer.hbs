@@ -1,6 +1,13 @@
-<strong>Hello, {{ student }}</strong>
-<p>Your question has been answered.</p>
-<p style="font-weight: bold; font-style: italic;">{{ question }}</p>
-<p>{{ answer }}</p>
-
-
+<div style="padding: 20px;">
+  <div style="text-align: center; padding: 10px; border-radius: 4px; background: #fff; color: #ee4d64">
+    <strong>Olá, {{ student }}! Sua pergunta foi respondida!</strong>
+  </div>
+  <p>Você perguntou:</p>
+  <div style="text-align: center; padding: 10px; border-radius: 4px; background: #fff; color: #ee4d64">
+    <strong>{{ question }}</strong>
+  </div>
+  <p>Nós respondemos:</p>
+  <div style="text-align: center; padding: 10px; border-radius: 4px; background: #fff; color: #ee4d64">
+    <strong>{{ answer }}</strong>
+  </div>
+</div>

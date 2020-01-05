@@ -1,24 +1,18 @@
-<strong>Hello, {{ student }}</strong>
-<p>Your registration has been completed.</p>
-<p>Here is your registration informations:</p>
-<br />
-<table>
-  <tbody>
-    <tr>
-      <td><strong>Plan</strong></td>
-      <td>{{ plan }}</td>
-    </tr>
-    <tr>
-      <td><strong>Expiration Date</strong></td>
-      <td>{{ end_date }}</td>
-    </tr>
-    <tr>
-      <td><strong>Total price</strong></td>
-      <td>R$ {{ price }},00</td>
-    </tr>
-  </tbody>
-</table>
-<br />
-<p>Welcome to our gym!</p>
-
+<div style="padding: 20px;">
+  <div style="text-align: center; padding: 10px; border-radius: 4px; background: #fff; color: #ee4d64">
+    <strong>Olá, {{ student }}! Sua matrícula foi realizada!</strong>
+  </div>
+  <div style="text-align: center;">
+    <p>Abaixo, estão as informações da sua matrícula:</p>
+  </div>
+  <div style="text-align: center;">
+    <p style="border-left: 4px solid #fff; background: rgba(255,255,255, 0.2); padding: 5px">Plano: <strong>{{ plan }}</strong></p>
+    <p style="border-left: 4px solid #fff; background: rgba(255,255,255, 0.2); padding: 5px">Valido até: <strong>{{ end_date }}</strong></p>
+    <p style="border-left: 4px solid #fff; background: rgba(255,255,255, 0.2); padding: 5px">Valor total: <strong>{{ price }}</strong></p>
+  </div>
+  <br />
+  <div style="text-align: center;">
+    <p>Bem-vindo à nossa academia!</p>
+  </div>
+</div>
 
