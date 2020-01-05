@@ -56,7 +56,8 @@ Você precisará ter instalado na sua máquina o **Node.js**, o **Yarn** e o **D
  - Feitos os downloads de todas as dependências, execute `yarn start` para inicilizar o frontend da aplicação;
 
 # Instruções para o mobile
-
+ > O projeto teve seu desenvolvimento focado em dispositivos ANDROID.
+ 
  - Executar o comando `yarn` para fazer o download de todas as dependências necessárias para executar o projeto;
 
  - Feitos os downloads de todas as dependências, execute `yarn android`, caso seja a primeira execução, ou `yarn start` para inicilizar o aplicativo;
