@@ -3,23 +3,25 @@ import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { MdKeyboardArrowLeft, MdCheck } from 'react-icons/md';
 import { Form, Input } from '@rocketseat/unform';
-import { addMonths } from 'date-fns';
+import { addMonths, parseISO } from 'date-fns';
 import { useParams } from 'react-router-dom';
-import UnformDatePicker from '~/components/UnformDatePicker';
 
 import api from '~/services/api';
 import history from '~/services/history';
 import UnformSelect from '~/components/UnformSelect';
 import UnformAsyncSelect from '~/components/UnformAsyncSelect';
+import UnformDatePicker from '~/components/UnformDatePicker';
 import { formatPrice } from '~/util/format';
 
-import { addRequest } from '~/store/modules/registration/actions';
+import {
+  addRequest,
+  updateRequest,
+} from '~/store/modules/registration/actions';
 
 import { Container, Header, Content } from './styles';
 
-export default function ManageRegistrations({ match }) {
-  const { id } = match.params;
-  const [registration, setRegistration] = useState({});
+export default function ManageRegistrations() {
+  const { id } = useParams();
   const [planOptions, setPlanOptions] = useState([]);
   const [planSelected, setPlanSelected] = useState('');
   const [startDate, setStartDate] = useState(new Date());
@@ -54,10 +56,15 @@ export default function ManageRegistrations({ match }) {
   async function getRegistration() {
     const response = await api.get(`registrations/${id}`);
     const { student, plan, ...data } = response.data;
-    // console.tron.log(response.data);
-    // setRegistration({
-    //   ...data,
-    // });
+    setInputStudent({
+      value: student.id,
+      label: student.name,
+    });
+    setPlanSelected({
+      ...plan,
+      value: plan.id,
+    });
+    setStartDate(parseISO(data.start_date));
   }
 
   useEffect(() => {
@@ -70,10 +77,15 @@ export default function ManageRegistrations({ match }) {
     btnSubmit.current.click();
   }
 
-  function handleSubmit(data, { resetForm }) {
+  function handleSubmit(data) {
     data.student_id = inputStudent.id;
-    dispatch(addRequest(data));
-    // resetForm();
+    if (!id) {
+      dispatch(addRequest(data));
+    } else {
+      data.plan_id = planSelected.value;
+      data.student_id = inputStudent.value;
+      dispatch(updateRequest(data, id));
+    }
   }
 
   async function getStudents(value) {
@@ -120,7 +132,7 @@ export default function ManageRegistrations({ match }) {
         </div>
       </Header>
       <Content>
-        <Form initialData={registration} onSubmit={handleSubmit}>
+        <Form onSubmit={handleSubmit}>
           <div className="input-fields" style={{ marginBottom: 15 }}>
             <div className="input-select-container" style={{ marginRight: 0 }}>
               <UnformAsyncSelect
@@ -140,6 +152,7 @@ export default function ManageRegistrations({ match }) {
                 label="Plano"
                 placeholder="Selecione o plano"
                 className="input-select"
+                value={planSelected}
                 options={planOptions}
                 onChange={event => setPlanSelected(event)}
               />
