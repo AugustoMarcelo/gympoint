@@ -16,6 +16,7 @@ export function* addRegistration({ payload }) {
     });
 
     toast(<CustomToast message="Matrícula realizada com sucesso" />);
+    history.push('/registrations');
   } catch (error) {
     toast.error(error.response.data.error);
   }
@@ -29,7 +30,7 @@ export function* updateRegistration({ payload }) {
       ...data,
     });
 
-    toast.success('Matrícula atualizada com sucesso');
+    toast(<CustomToast message="Matrícula atualizada com sucesso" />);
     history.push('/registrations');
   } catch (error) {
     toast.error(error.response.data.error);
