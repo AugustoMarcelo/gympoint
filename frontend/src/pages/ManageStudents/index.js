@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { MdCheck, MdKeyboardArrowLeft } from 'react-icons/md';
 import { Form, Input } from '@rocketseat/unform';
+import * as Yup from 'yup';
 
 import history from '~/services/history';
 import api from '~/services/api';
@@ -10,6 +11,16 @@ import api from '~/services/api';
 import { addRequest, updateRequest } from '~/store/modules/student/actions';
 
 import { Container, Header, Content } from './styles';
+
+const schema = Yup.object().shape({
+  name: Yup.string().required('O nome é obrigatório'),
+  email: Yup.string()
+    .email('Informe um e-mail válido')
+    .required('O email é obrigatório'),
+  age: Yup.number().required('A idade é obrigatória'),
+  weight: Yup.number().required('O peso é obrigatório'),
+  height: Yup.number().required('A altura é obrigatória'),
+});
 
 export default function ManageStudents({ match }) {
   const { id } = match.params;
@@ -64,7 +75,7 @@ export default function ManageStudents({ match }) {
         </div>
       </Header>
       <Content>
-        <Form initialData={student} onSubmit={handleSubmit}>
+        <Form initialData={student} schema={schema} onSubmit={handleSubmit}>
           <Input
             name="name"
             placeholder="Nome do aluno"

@@ -73,6 +73,13 @@ export const Content = styled.div`
       color: #444;
     }
 
+    span {
+      color: #d63031;
+      align-self: flex-start;
+      margin: 5px 0 10px;
+      font-weight: bold;
+    }
+
     div.input-fields {
       display: flex;
       justify-content: space-between;

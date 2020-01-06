@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { MdCheck, MdKeyboardArrowLeft } from 'react-icons/md';
 import { Form, Input } from '@rocketseat/unform';
+import * as Yup from 'yup';
 
 import history from '~/services/history';
 import api from '~/services/api';
@@ -10,6 +11,14 @@ import api from '~/services/api';
 import { addRequest, updateRequest } from '~/store/modules/plan/actions';
 
 import { Container, Header, Content } from './styles';
+
+const schema = Yup.object().shape({
+  title: Yup.string().required('O título é obrigatório'),
+  duration: Yup.number()
+    .typeError('Informe um número')
+    .required('A duração é obrigatória'),
+  price: Yup.number().required('O preço é obrigatório'),
+});
 
 export default function ManagePlans({ match }) {
   const { id } = match.params;
@@ -75,7 +84,7 @@ export default function ManagePlans({ match }) {
         </div>
       </Header>
       <Content>
-        <Form initialData={plan} onSubmit={handleSubmit}>
+        <Form initialData={plan} schema={schema} onSubmit={handleSubmit}>
           <Input
             name="title"
             placeholder="Descrição do plano"

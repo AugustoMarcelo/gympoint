@@ -5,6 +5,7 @@ import { MdKeyboardArrowLeft, MdCheck } from 'react-icons/md';
 import { Form, Input } from '@rocketseat/unform';
 import { addMonths, parseISO } from 'date-fns';
 import { useParams } from 'react-router-dom';
+import * as Yup from 'yup';
 
 import api from '~/services/api';
 import history from '~/services/history';
@@ -19,6 +20,14 @@ import {
 } from '~/store/modules/registration/actions';
 
 import { Container, Header, Content } from './styles';
+
+const schema = Yup.object().shape({
+  student_id: Yup.number().required('O aluno é obrigatório'),
+  plan_id: Yup.number()
+    .nullable(false)
+    .required('O email é obrigatório'),
+  start_date: Yup.date().required('A data de início é obrigatória'),
+});
 
 export default function ManageRegistrations() {
   const { id } = useParams();
@@ -132,7 +141,7 @@ export default function ManageRegistrations() {
         </div>
       </Header>
       <Content>
-        <Form onSubmit={handleSubmit}>
+        <Form onSubmit={handleSubmit} schema={schema}>
           <div className="input-fields" style={{ marginBottom: 15 }}>
             <div className="input-select-container" style={{ marginRight: 0 }}>
               <UnformAsyncSelect

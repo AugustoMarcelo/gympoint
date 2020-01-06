@@ -73,6 +73,13 @@ export const Content = styled.div`
       color: #444;
     }
 
+    span {
+      color: #d63031;
+      align-self: flex-start;
+      margin: -10px 0 15px;
+      font-weight: bold;
+    }
+
     div {
       display: flex;
       justify-content: space-between;
